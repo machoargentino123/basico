@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ak-t(u66bag@c%dn2)^y=pqscttk3fm5330k*#q(=!8-s@&_ph
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['nahueltest.azurewebsites.net']
 
 
 # Application definition
@@ -143,3 +143,7 @@ LOGIN_REDIRECT_URL = '/api/luces/'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+
+
+STATIC_FILE_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static/assets")

@@ -105,13 +105,13 @@ class LucesListView2(ListView):
     context_object_name = 'luz'
 
 #vista que renderiza la pagina con js.
-class LucesListView3(LoginRequiredMixin,ListView):
+class LucesListView3(ListView):
     model = Prueba
     template_name = "luces3.html"
     context_object_name = 'luz'
     
 #esta es a la que llama cuando ya esta renderizada la anterior y la usa js para ver el cada luz. 
-class ListPruebaAPIView2(LoginRequiredMixin,ListAPIView):
+class ListPruebaAPIView2(ListAPIView):
     """This endpoint list all of the available todos from the database"""
     serializer_class = PruebaSerializer
     def get_queryset(self):
