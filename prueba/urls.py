@@ -21,3 +21,4 @@ urlpatterns = [
     path("logger/create/",views.CreateLoggerAPIView.as_view(),name="logger_create"),
 
 ]
+
