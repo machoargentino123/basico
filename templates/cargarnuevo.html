@@ -1,0 +1,21 @@
+{% extends 'include/base.html' %}
+
+{% block title %}
+Listado de luces
+
+{% endblock title %}
+
+{% load static %}<!--cargo carpeta static '-->
+{% block content %}
+{% include 'include/header.html' %}
+{% load rest_framework %}
+
+    <form action="{% url 'luces_app:formulario2' %}" method = "POST" >
+
+            {% csrf_token %}
+            {% render_form serializer %}
+            
+        <input type="submit" value="Enviar">
+    </form>
+
+{% endblock content %}

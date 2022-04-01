@@ -1,0 +1,170 @@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+<script>
+
+    //Puendo la luz
+    function prendido(prendido) {
+        let param = '?encendido='+ prendido;    
+        send_request(param);
+      }
+    
+    // Funcion para el cuadrito de busqueda.
+    
+    function buscar(){
+        let id = document.getElementById('id').value;
+        if (id === ''){
+            id = '0';
+        }
+    
+        id = '?id='+id;
+        
+        send_request(id);
+    }
+    
+    //ejecuta prendido la primera vez que entras a la pagina, y por lo tanto me genera un listado con todas las luces.
+    
+    window.onload = function() {
+        prendido("");
+    };
+    
+    
+    
+    // Esta parte toma la solicitud GET y devuelve en funcion del parametro  param la informacion
+    //la informacion es result y a su vez es dirigida a la funcion update_table(result)
+    function send_request(param) {  
+        var a = "{% url 'luces_app:prueba_list2'%}"
+        $.ajax({
+            method: 'GET',
+            url: a + param,
+            beforeSend: function() {
+            },
+            success: function(result) {
+                update_table(result);
+            },
+            error: function(){
+            }
+        });
+    }
+    
+    
+    
+    function send_update(param,estado) {  
+        //aca obtengo las cookies segun la documentacion. 
+        function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+            return cookieValue;
+        }
+    
+        const csrftoken = getCookie('csrftoken');
+        console.log(csrftoken)
+    
+    
+        // aca armo la url con un valor pk 123, despues creo una nueva variable donde reemplazo 123
+        // con el valor param
+        var a = "{% url 'luces_app:update_prueba' 123 %}"
+        var b = a.replace('123', param);
+        console.log(b);
+        var data = {};
+        data.Luz = param;
+        data.encendido = estado; 
+    
+        console.log(data);
+        $.ajax({
+            method: 'PUT',
+            url: b,
+            headers: {'X-CSRFToken': csrftoken},
+            data:data,
+    
+        });
+        location.reload();                                                                 
+    };
+
+
+    //te redirecciona a la pagina indicada. 
+
+    function editar(param){
+        let url = new URL(window.location.href);
+        var a = url.origin + '/api/editar/' + param + "/"
+        window.location.href = a;
+
+    }
+
+
+
+    function borrar(param){
+         
+        function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+            return cookieValue;
+        }
+    
+        const csrftoken = getCookie('csrftoken');
+        console.log(csrftoken);
+    
+    
+        // aca armo la url con un valor pk 123, despues creo una nueva variable donde reemplazo 123
+        // con el valor param
+        var a = "{% url 'luces_app:delete_prueba' 123 %}"
+        var b = a.replace('123', param);
+        var mensaje = "Vas a borrar la siguiente luz: " + param
+        var opcion = confirm(mensaje);
+        if (opcion == true) {
+                mensaje = confirm("Se borrara Luz" + param);
+                $.ajax({
+                    method: 'DELETE',
+                    url: b,
+                    headers: {'X-CSRFToken': csrftoken},
+            
+                });
+
+        }else {
+        mensaje = "Se ha cancelado el delete";
+        alert(mensaje);
+    }
+        location.reload();   
+    }
+    
+    //La funcion data toma automaticamente el resultado y va creando 
+    //linea por lne los resultados. update_table(result) result es data. tema de nombres y resconstruye la tabla.
+    
+    function update_table(data) {
+        let row;
+        let all_rows = '';
+    
+        Object.keys(data).forEach(key => {
+          elem = data[key];
+          if (elem['encendido'] == true){
+            row = '<tr> <td>' + elem['Luz'] + '</td>' + '<td>' + '<button  class="button alert" type="submit" onclick="send_update(' + elem['Luz'] + ',false)">' + 'Apagar Luz' + '</button>' + '</td>' + '<td>' + elem['Ip'] + '</td>' + '<td>' + elem['descripcion'] + '</td>'+ '<td>'+ '<button class="hollow button success" href="#" onClick="editar(' + elem['Luz'] + ');" type="button">' + '<i class="fas fa-align-center"></i>' + '</a>' + '</button>' +  '</td>'+ '</td>'+ '<button  class="button alert" type="submit" onclick="borrar(' + elem['Luz'] + ');"> borrar' + '<i class="fas fa-align-center"></i>' + '</a>' + '</button>'+  '</td>' + '<td>' + '<button  class="button alert" onclick="borrar('+ elem['Luz'] + ');">' +'<i class="fas fa-align-center"></i>' + '</a>' + '</button>' + '</td>' + '</tr>';
+          }else if ((elem['encendido'] == false)){
+            row = '<tr> <td>' + elem['Luz'] + '</td>' + '<td>' + '<button  class="success button" type="submit" onclick="send_update(' + elem['Luz'] + ',true)">' + 'Prender Luz' + '</button>' + '</td>' + '<td>' + elem['Ip'] + '</td>' + '<td>' + elem['descripcion'] + '</td>' + '<td>' + '<button class="hollow button success" href="#" onClick="editar(' + elem['Luz'] + ');" type="button">' + '<i class="fas fa-align-center"></i>' + '</a>' + '</button>'+ '</td>'+ '</td>'+ '<button  class="button alert" type="submit" onclick="borrar(' + elem['Luz'] + ');"> borrar' + '<i class="fas fa-align-center"></i>' + '</a>' + '</button>'+  '</td>' + '<td>' + '<button  class="button alert" onclick="borrar('+ elem['Luz'] + ');">' +'<i class="fas fa-align-center"></i>' + '</a>' + '</button>' + '</td>' + '</tr>';
+          } 
+          
+          all_rows = all_rows + row;
+        });
+    
+        $('#latabla tbody').html(all_rows);
+      }
+    
+    </script>

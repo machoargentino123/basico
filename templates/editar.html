@@ -1,0 +1,28 @@
+{% extends 'include/base.html' %}
+
+{% block title %}
+Listado de luces
+
+{% endblock title %}
+
+{% load static %}<!--cargo carpeta static '-->
+{% block content %}
+{% include 'include/header.html' %}
+{% load rest_framework %}
+<div class="container">
+    <div class="grid-container fluid">
+        <div class="grid-x grid-margin-x">
+            <div class = "cell small-6 large-4"></div>
+            <div class = "cell small-6 large-4">
+                <form action="{% url 'luces_app:editar' pk=luz.pk %}" method = "POST" >
+
+                        {% csrf_token %}
+                        {% render_form serializer %}
+                        
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

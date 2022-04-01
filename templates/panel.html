@@ -1,0 +1,22 @@
+{% extends 'include/base.html' %}
+
+{% block title %}
+Panel de estado del Server  
+
+{% endblock title %}
+
+{% load static %}<!--cargo carpeta static '-->
+{% block content %}
+{% include 'include/header.html' %}
+{% load rest_framework %}
+
+{% csrf_token %}
+<h1>Panel de estado del Server  </h1>
+
+<p>{{name}}</p>
+<p>carga de la cpu ultimos 15 minutos: {{cpu.load15}}</p>
+<p>carga de la cpu ultimos 60 minutos: {{cpu.load60}}</p>
+<p>Frecuencia de la CPU: {{cpu.freq}}</p>
+<p>% de uso de ram: {{cpu.ram}}</p>
+
+{% endblock content %}

@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: nahuelirazusta@gmail.com
+Date: Fri, 03 Dec 2021 17:01:37 -0000
+Message-ID: <163855089771.2860.16851872679601446814@DESKTOP-J6QT1BJ>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/Mg/ax32yp-9c81cbac7e001d1f005fa3934b113fed/
+
+Your username, in case you’ve forgotten: nahuelirazusta@gmail.com
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------
