@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-ak-t(u66bag@c%dn2)^y=pqscttk3fm5330k*#q(=!8-s@&_ph
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ruta = ['https://*.azurewebsites.net','http://*.azurewebsites.net','nahueltest.azurewebsites.net','http://nahueltest.azurewebsites.net','https://nahueltest.azurewebsites.net']
+ruta = ['http://nahueltest.azurewebsites.net','https://nahueltest.azurewebsites.net']
 ALLOWED_HOSTS = ruta
 CSRF_TRUSTED_ORIGINS = ruta
 
