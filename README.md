@@ -25,3 +25,4 @@ API REST Format:<br/>
               "descripcion": "la luz primigenia"<br/>
           }<br/>
 
+![image](https://user-images.githubusercontent.com/37676359/195884113-39a825b7-a2f8-415e-b989-79b538f5e89b.png)
