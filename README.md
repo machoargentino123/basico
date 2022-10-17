@@ -18,6 +18,8 @@ Routes:<br/>
 4) There is a server server monitor in api/panel<br/>
 
 API REST Format:<br/>
+application/json<br/>
+<br/>
           {<br/>
               "Luz": 1,<br/>
               "encendido": false,<br/>
