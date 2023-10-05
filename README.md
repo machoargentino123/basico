@@ -28,3 +28,6 @@ application/json<br/>
           }<br/>
 
 ![image](https://user-images.githubusercontent.com/37676359/195884113-39a825b7-a2f8-415e-b989-79b538f5e89b.png)
+
+
+![image](https://github.com/machoargentino123/basico/assets/37676359/a8f20d19-2ec2-49be-971c-9c3443333fc5)
